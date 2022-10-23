@@ -22,6 +22,7 @@ if($_POST){
             $_SESSION['membre']['id_membre'] = $membre['id_membre'];
             $_SESSION['membre']['nom'] = $membre['nom'];
             $_SESSION['membre']['prenom'] = $membre['prenom'];
+            $_SESSION['membre']['email'] = $membre['email'];
             $_SESSION['membre']['pseudo'] = $membre['pseudo'];
             $_SESSION['membre']['adresse'] = $membre['adresse'];
             $_SESSION['membre']['cp'] = $membre['cp'];

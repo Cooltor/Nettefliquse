@@ -16,17 +16,18 @@ $profil = '';
 
 
 
-$profil .= '<div class="text-center">'. $_SESSION['membre']['photo'] . "</div>" ;
+$profil .= '<div class="text-center">' . $_SESSION['membre']['photo'] . "</div>" .
                         '<div class="text-center">' . 'Votre pseudo : ' . $_SESSION['membre']['pseudo'] . "</div>" . 
                         '<div class="text-center">' . 'Votre nom : ' . $_SESSION['membre']['nom'] . "</div>" .
                         '<div class="text-center">' . 'Votre prénom : ' .  $_SESSION['membre']['prenom'] . "</div>" .
                         '<div class="text-center">' . 'Votre email : ' . $_SESSION['membre']['email']  . "</div>" .
                         '<div class="text-center">' . 'Votre adresse : ' . $_SESSION['membre']['adresse'] . "</div>" .
                         '<div class="text-center">' . 'Votre ville : ' . $_SESSION['membre']['ville'] . "</div>" .
-                        '<div class="text-center">' . 'Votre code postal : ' .$_SESSION['membre']['cp'] . "</div>" .
-                        
+                        '<div class="text-center">' . 'Votre code postal : ' .$_SESSION['membre']['cp'] . "</div>" ;
 
-                        $content .= $profil;
+
+
+$content .= $profil;
 
 
 
@@ -45,13 +46,6 @@ $profil .= '<div class="text-center">'. $_SESSION['membre']['photo'] . "</div>" 
 
 
 ?>
-
-
-
-
-
-
-
 
 
 <!-- PARTIE AFFICHAGE -->
@@ -73,6 +67,9 @@ $profil .= '<div class="text-center">'. $_SESSION['membre']['photo'] . "</div>" 
         <h3>Livrées en moins de 6 semaines</h3>
     </div>
     </header>
-    <button><a href="login.php" name='deco'>Se déconnecter</a></button>
+    <h1>PROFIL</h1>
+
+    <?php echo $content; ?> <br>
+    <button id="bouton"><a href="login.php" name='deco'>Se déconnecter</a></button>
 </body>
 </html>
