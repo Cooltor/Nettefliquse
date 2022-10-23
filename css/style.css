@@ -93,3 +93,14 @@ a{
     color: white;
     margin-bottom: 30px;
 }
+
+button{
+    border-radius: 5px;
+    border: none;
+    background-color: #8E0E00;
+    color: white;
+    font-size: 20px;
+    
+    cursor: pointer;
+    margin-top: 20px;
+}

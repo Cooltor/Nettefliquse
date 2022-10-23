@@ -19,9 +19,24 @@ if($_POST)
     {
         $_POST[$key] = htmlspecialchars(addslashes($value));
     }
+
+    if(strlen($_POST['pseudo']) <3 || strlen($_POST['pseudo']) > 20) {
+        $err .= '<div class="alert alert-danger">Le pseudo doit contenir entre 3 et 20 caractères</div>';
+    }
+
+    $monExpression = '#^[a-zA-Z0-9._-]+$#';
+    if(!preg_match($monExpression, $_POST['pseudo'])) {
+        $err .= '<div class="alert alert-danger">Caractères autorisés : a-z A-Z 0-9 . _ -</div>';
+    }
+
+    if(strlen($_POST['mdp']) <3 || strlen($_POST['mdp']) > 20) {
+        $err .= '<div class="alert alert-danger">Le mot de passe doit contenir entre 3 et 20 caractères</div>';
+    }
+    $_POST['mdp'] = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
+
     if(!empty($_FILES['photo']))
     {
-        $nom_img = time() . '' . $POST['reference'] . '' . $_FILES['photo']['name'];
+        $nom_img = time() . '' . $POST['pseudo'] . '' . $_FILES['photo']['name'];
         
         $img_doc = RACINE . "photo/$nom_img";
         $img_bdd = URL . "photo/$nom_img";
@@ -46,11 +61,11 @@ if($_POST)
             Vérifier la taille de votre image
             </div>';
         }
-        $rep= $pdo->query("INSERT INTO membre (nom, prenom, email, pseudo, adresse, cp, ville, photo, mdp) VALUES ('$_POST[nom]', '$_POST[prenom]', '$_POST[email]', '$_POST[pseudo]', '$_POST[adresse]', '$_POST[cp]', '$_POST[ville]', '$img_bdd', '$_POST[mdp]')");
-
+    $rep= $pdo->query("INSERT INTO membre (nom, prenom, email, pseudo, adresse, cp, ville, photo, mdp) VALUES ('$_POST[nom]', '$_POST[prenom]', '$_POST[email]', '$_POST[pseudo]', '$_POST[adresse]', '$_POST[cp]', '$_POST[ville]', '$img_bdd', '$_POST[mdp]')");
+    header('location:login.php');
     }
     
-    $rep= $pdo->query("INSERT INTO membre (nom, prenom, email, pseudo, adresse, cp, ville, photo, mdp) VALUES ('$_POST[nom]', '$_POST[prenom]', '$_POST[email]', '$_POST[pseudo]', '$_POST[adresse]', '$_POST[cp]', '$_POST[ville]', '$img_bdd', '$_POST[mdp]')");
+    $content .= $err;
 }
 
 

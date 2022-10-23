@@ -4,9 +4,29 @@
 require_once './inc/init.inc.php'; 
 
 
+if(!userConnected()){
+    header('location:./login.php');
+    exit();
+}
+
+
+$resultat = $pdo->query('SELECT * FROM membre WHERE pseudo = "$_POST[pseudo]"');
+$membre = $resultat->fetch(PDO::FETCH_ASSOC);
+$profil = '';
 
 
 
+$profil .= '<div class="text-center">'. $_SESSION['membre']['photo'] . "</div>" ;
+                        '<div class="text-center">' . 'Votre pseudo : ' . $_SESSION['membre']['pseudo'] . "</div>" . 
+                        '<div class="text-center">' . 'Votre nom : ' . $_SESSION['membre']['nom'] . "</div>" .
+                        '<div class="text-center">' . 'Votre prénom : ' .  $_SESSION['membre']['prenom'] . "</div>" .
+                        '<div class="text-center">' . 'Votre email : ' . $_SESSION['membre']['email']  . "</div>" .
+                        '<div class="text-center">' . 'Votre adresse : ' . $_SESSION['membre']['adresse'] . "</div>" .
+                        '<div class="text-center">' . 'Votre ville : ' . $_SESSION['membre']['ville'] . "</div>" .
+                        '<div class="text-center">' . 'Votre code postal : ' .$_SESSION['membre']['cp'] . "</div>" .
+                        
+
+                        $content .= $profil;
 
 
 
@@ -53,6 +73,6 @@ require_once './inc/init.inc.php';
         <h3>Livrées en moins de 6 semaines</h3>
     </div>
     </header>
-
+    <button><a href="login.php" name='deco'>Se déconnecter</a></button>
 </body>
 </html>
