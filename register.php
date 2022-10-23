@@ -12,21 +12,29 @@ $err = '';
 
 
 
-if($_POST)
+if(!empty($_POST))
 {   
     
     foreach($_POST as $key => $value)
     {
         $_POST[$key] = htmlspecialchars(addslashes($value));
     }
+    
+    
 
-    if(strlen($_POST['pseudo']) <3 || strlen($_POST['pseudo']) > 20) {
+    $pseudo = addslashes($_POST['pseudo']);
+    if(strlen($pseudo) <3 || strlen($pseudo) > 20) {
         $err .= '<div class="alert alert-danger">Le pseudo doit contenir entre 3 et 20 caractères</div>';
     }
 
     $monExpression = '#^[a-zA-Z0-9._-]+$#';
     if(!preg_match($monExpression, $_POST['pseudo'])) {
         $err .= '<div class="alert alert-danger">Caractères autorisés : a-z A-Z 0-9 . _ -</div>';
+    }
+
+    $r = $pdo->query("SELECT * FROM membre WHERE pseudo = '$_POST'");
+    if($r->rowCount() >= 1) {
+        $err .= '<div class="alert alert-danger">Le pseudo est déjà pris </div>';
     }
 
     if(strlen($_POST['mdp']) <3 || strlen($_POST['mdp']) > 20) {
@@ -61,14 +69,15 @@ if($_POST)
             Vérifier la taille de votre image
             </div>';
         }
-    $rep= $pdo->query("INSERT INTO membre (nom, prenom, email, pseudo, adresse, cp, ville, photo, mdp) VALUES ('$_POST[nom]', '$_POST[prenom]', '$_POST[email]', '$_POST[pseudo]', '$_POST[adresse]', '$_POST[cp]', '$_POST[ville]', '$img_bdd', '$_POST[mdp]')");
-    header('location:login.php');
-    }
     
-    $content .= $err;
+    }
+    if(empty($err)){
+    $rep= $pdo->query("INSERT INTO membre (nom, prenom, email, pseudo, adresse, cp, ville, photo, mdp) VALUES ('$_POST[nom]', '$_POST[prenom]', '$_POST[email]', '$_POST[pseudo]', '$_POST[adresse]', '$_POST[cp]', '$_POST[ville]', '$img_bdd', '$_POST[mdp]')");
+    header('location:login.php');}
+    
 }
 
-
+$content .= $err;
 
 
 ?>
