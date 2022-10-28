@@ -74,7 +74,7 @@ if(!empty($_POST))
     if(empty($err)){
     $rep= $pdo->query("INSERT INTO membre (nom, prenom, email, pseudo, adresse, cp, ville, photo, mdp) VALUES ('$_POST[nom]', '$_POST[prenom]', '$_POST[email]', '$_POST[pseudo]', '$_POST[adresse]', '$_POST[cp]', '$_POST[ville]', '$img_bdd', '$_POST[mdp]')");
     header('location:login.php');}
-    
+
 }
 
 $content .= $err;
