@@ -23,7 +23,6 @@ if(isset($_GET['action']) && $_GET['action'] == 'supprimer')
 
 $resultat = $pdo->query('SELECT * FROM membre WHERE pseudo = "$_POST[pseudo]"');
 $membre = $resultat->fetch(PDO::FETCH_ASSOC);
-$profil = '';
 $photo = $_SESSION['membre']['photo'];
 
 
@@ -37,8 +36,9 @@ $content.=  "</div>" .
                         '<div class="text-center">' . 'Votre adresse : ' . $_SESSION['membre']['adresse'] . "</div>" .
                         '<div class="text-center">' . 'Votre ville : ' . $_SESSION['membre']['ville'] . "</div>" .
                         '<div class="text-center">' . 'Votre code postal : ' .$_SESSION['membre']['cp'] . "</div>" .
-                        '<a href="?action=supprimer&id_membre='.$_SESSION['membre']['id_membre'].'">Supprimer mon profil<i class="fas fa-trash-alt"></i></a>';
+                        '<button id="supprimer"><a href="?action=supprimer&id_membre='.$_SESSION['membre']['id_membre'].'">Supprimer mon profil<i class="fas fa-trash-alt"></i></a></button>';
 ?>
+
 
 
 <!-- PARTIE AFFICHAGE -->
